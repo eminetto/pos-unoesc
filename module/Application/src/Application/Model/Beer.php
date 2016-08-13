@@ -22,9 +22,9 @@ class Beer
         $inputFilter->add(array(
             'name'     => 'id',
             'required' => false,
-            'filters'  => array(
-                array('name' => 'Int'),
-            ),
+            // 'filters'  => array(
+            //     array('name' => '\Zend\Filter\Int'),
+            // ),
         ));
 
         $inputFilter->add(array(
@@ -76,8 +76,12 @@ class Beer
 
         return $inputFilter;
     }
-    public function exchangeArray()
+    //usado pelo TableGateway
+    public function exchangeArray($data)
     {
-        
+        $this->id     = (!empty($data['id'])) ? $data['id'] : null;
+        $this->name = (!empty($data['name'])) ? $data['name'] : null;
+        $this->style  = (!empty($data['style'])) ? $data['style'] : null;
+        $this->img  = (!empty($data['img'])) ? $data['img'] : null;
     }
 }

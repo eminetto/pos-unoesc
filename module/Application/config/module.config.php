@@ -20,6 +20,26 @@ return array(
                     ),
                 ),
             ),
+            'create' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/create',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'create',
+                    ),
+                ),
+            ),
+            'insert' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/insert',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'insert',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -60,12 +80,15 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'invokables' => array(
+            'Application\Form\Beer' => 'Application\Form\Beer',
+        ),
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
             'Application\Model\BeerTableGateway' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new Zend\Db\ResultSet\ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Beer());
+                    $resultSetPrototype->setArrayObjectPrototype(new Application\Model\Beer());
                     $tableGateway = new Zend\Db\TableGateway\TableGateway('beer', $dbAdapter, null, $resultSetPrototype);
                     $beerTableGateway = new Application\Model\BeerTableGateway($tableGateway);
                     return $beerTableGateway;

@@ -1,0 +1,20 @@
+<?php echo $this->form()->openTag($beerForm); ?>
+<div class="form_element">
+    <?php echo $this->formRow($beerForm->get('name')); ?>
+</div>
+
+<div class="form_element">
+    <?php echo $this->formRow($beerForm->get('style')); ?>
+</div>
+
+<div class="form_element">
+    <?php echo $this->formRow($beerForm->get('img')); ?>
+</div>
+
+<?php if ($beerForm->has('id')): ?>
+    <?php echo $this->formElement($beerForm->get('id')) ?>
+<?php endif;?>
+
+<?php echo $this->formElement($beerForm->get('send')) ?>
+
+<?php echo $this->form()->closeTag() ?>
