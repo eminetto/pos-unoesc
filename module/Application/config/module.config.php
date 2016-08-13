@@ -60,6 +60,17 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+            'Application\Model\BeerTableGateway' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new Zend\Db\ResultSet\ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Beer());
+                    $tableGateway = new Zend\Db\TableGateway\TableGateway('beer', $dbAdapter, null, $resultSetPrototype);
+                    $beerTableGateway = new Application\Model\BeerTableGateway($tableGateway);
+                    return $beerTableGateway;
+                },
+            ),
     ),
     'translator' => array(
         'locale' => 'en_US',

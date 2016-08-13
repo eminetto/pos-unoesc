@@ -16,6 +16,9 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $beers = $this->getServiceLocator()
+                      ->get('Application\Model\BeerTableGateway')
+                      ->fetchAll();
+        return new ViewModel(array('beers' => $beers));
     }
 }
